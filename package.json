@@ -2,12 +2,11 @@
   "name": "jdt-cli",
   "version": "1.0.0",
   "description": "",
-  "main": "bin/jdt.js",
   "bin": {
-    "jdt": "bin/jdt.js"
+    "jdt": "bin/jdt"
   },
   "scripts": {
-    "test": "node ./bin/jdt.js"
+    "test": "node ./bin/jdt"
   },
   "keywords": [],
   "author": "heylight",
