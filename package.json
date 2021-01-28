@@ -1,0 +1,30 @@
+{
+  "name": "jdt-cli",
+  "version": "1.0.0",
+  "description": "",
+  "main": "bin/jdt.js",
+  "bin": {
+    "jdt": "bin/jdt.js"
+  },
+  "scripts": {
+    "test": "node ./bin/jdt.js"
+  },
+  "keywords": [],
+  "author": "heylight",
+  "license": "ISC",
+  "dependencies": {
+    "cli-spinners": "^2.5.0",
+    "copy": "^0.3.2",
+    "download": "^8.0.0",
+    "esm": "^3.2.25",
+    "extract-zip": "^2.0.1",
+    "handlebars": "^4.7.6",
+    "inquirer": "^7.3.3",
+    "write": "^2.0.0"
+  },
+  "homepage": "https://github.com:heylight/jdt-cli",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com:heylight/jdt-cli.git"
+  }
+}
