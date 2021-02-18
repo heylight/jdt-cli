@@ -17,30 +17,29 @@ async function copyConfig(to, answers) {
       overwrite: true,
     });
   }
-
-  if (answers.install) {
-    let i = 0;
-    let spin = setInterval(() => {
-      const { frames } = cliSpinners.dots;
-      process.stdout.write(`\r${frames[(i = ++i % frames.length)]} install...`);
-    }, cliSpinners.dots.interval);
-    exec(`cd ${answers.name}&&npm i`, function (err) {
-      clearInterval(spin);
-      process.stdout.clearLine();
-      console.log("\n完成!\n");
-    });
-  }
+  console.log(answers);
+  // if (answers.install) {
+  //   let i = 0;
+  //   let spin = setInterval(() => {
+  //     const { frames } = cliSpinners.dots;
+  //     process.stdout.write(`\r${frames[(i = ++i % frames.length)]} install...`);
+  //   }, cliSpinners.dots.interval);
+  //   exec(`cd ${answers.name}&&npm i`, function (err) {
+  //     clearInterval(spin);
+  //     process.stdout.clearLine();
+  //     console.log("\n完成!\n");
+  //   });
+  // }
 }
 function handle(answers) {
   const from = path.resolve(__dirname, `../template/${answers.template}/**/*`);
   const to = path.resolve(process.cwd(), answers.name);
   copy(from, to, function (err, file) {
-    console.log("yes", answers);
-    // if (["cms"].includes(answers.template)) {
-    //   copyConfig(to, answers);
-    // } else {
-    //   console.log("\n完成!\n");
-    // }
+    if (err) {
+      console.log(err);
+    } else {
+      copyConfig(to, answers);
+    }
   });
 }
 export default handle;
