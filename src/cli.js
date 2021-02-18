@@ -9,30 +9,39 @@ export function cli(args) {
       {
         type: "input",
         name: "name",
-        message: "请输入项目名称(英文)",
+        message: "project name",
         default: "projectName",
       },
       {
         type: "list",
         name: "template",
-        message: "选择一个项目模板",
-        choices: ["cms", "simple"],
+        message: "choose a template",
+        choices: ["cms", "multi-page"],
         default: "cms",
       },
       {
         type: "input",
         name: "host",
-        message: "请输入host",
+        message: "host",
         default: "t.jd.com",
+        when(answers) {
+          return answers.template === "cms";
+        },
       },
       {
         type: "input",
         name: "proxy",
-        message: "请输入代理地址",
+        message: "proxy",
         default: "proxy.jd.com",
+        when(answers) {
+          return answers.template === "cms";
+        },
+      },
+      {
+        type: "confirm",
+        name: "install",
+        message: "install now?",
       },
     ])
-    .then((answers) => {
-      handle(answers);
-    });
+    .then(handle);
 }
