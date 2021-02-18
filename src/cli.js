@@ -10,7 +10,7 @@ export function cli(args) {
         type: "input",
         name: "name",
         message: "project name",
-        default: "projectName",
+        default: "project-name",
       },
       {
         type: "list",

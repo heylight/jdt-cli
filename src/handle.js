@@ -6,13 +6,16 @@ import { exec } from "child_process";
 import { compile } from "handlebars";
 
 async function copyConfig(to, answers) {
-  let pkg = `../template/${answers.template}/package.json`;
-  await write(path.join(to, "package.json"), compile(pkg)(answers), {
-    overwrite: true,
-  });
-
+  let pkg = require(`../template/${answers.template}/package.json`);
+  await write(
+    path.join(to, "package.json"),
+    compile(JSON.stringify(pkg, null, 2))(answers),
+    {
+      overwrite: true,
+    }
+  );
   if (answers.template === "cms") {
-    let env = `../template/${answers.template}/.env`;
+    let env = require(`../template/${answers.template}/.env`);
     await write(path.join(to, ".env"), compile(env)(answers), {
       overwrite: true,
     });
