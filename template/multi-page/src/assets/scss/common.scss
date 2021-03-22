@@ -1,0 +1,44 @@
+.clearfix:after,.clearfix:before{
+  content:".";
+  display:block;
+  height: 0;
+  visibility:hidden;
+  clear: both;
+}
+.clearfix:after{
+  clear:both;
+ }
+.clearfix{
+  zoom:1;
+}
+
+.fl{
+  float: left;
+}
+.fr{
+  float: right;
+}
+
+.po-rel{
+  position: relative;
+}
+.po-abs{
+  position: absolute;
+}
+
+.content{
+  width: 1528px;
+  margin: 0 auto;
+}
+
+.color-primary{
+  color: #ED7600;
+}
+.img_gray { 
+  -webkit-filter: grayscale(100%);
+  -moz-filter: grayscale(100%);
+  -ms-filter: grayscale(100%);
+  -o-filter: grayscale(100%);
+  filter: grayscale(100%);
+  filter: gray;
+}
