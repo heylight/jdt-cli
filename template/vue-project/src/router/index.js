@@ -2,6 +2,7 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 import store from '../store';
 import routes from './routes';
+import Home from '../views/Home';
 
 const originalPush = VueRouter.prototype.push;
 VueRouter.prototype.push = function push(location) {
@@ -12,7 +13,7 @@ Vue.use(VueRouter);
 const baseRoutes = [
   {
     path: '/',
-    redirect: '/main',
+    component: Home,
   },
   {
     path: '/about',
@@ -42,8 +43,7 @@ const router = new VueRouter({
   routes: baseRoutes,
 });
 router.beforeEach((to, from, next) => {
-  let ct1 = to.matched.some((record) => record.meta.requiresAuth);
-  if (ct1) {
+  if (to.matched.some((record) => record.meta.requiresAuth)) {
     if (!store.state.userInfo.username) {
       store.dispatch('getUserInfo').then((res) => {
         if (res.code == 1) {

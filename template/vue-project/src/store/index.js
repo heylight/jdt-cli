@@ -8,6 +8,12 @@ export default new Vuex.Store({
     userInfo: {},
     authority: [],
   },
+  getters: {
+    consoleHome(state) {
+      let m = state.authority;
+      return { name: m.length ? m[0] : 'login' };
+    },
+  },
   mutations: {
     setState(state, payload = {}) {
       Object.keys(payload).forEach((key) => {
@@ -21,7 +27,7 @@ export default new Vuex.Store({
         Vue.axios.get('/getUserInfo').then((res) => {
           if (res.code == 1) {
             commit('setState', {
-              userInfo: { username: 'xiaoming' },
+              userInfo: res.data,
               // 用户有权访问的路由，从后端接口获取
               authority: [
                 'main.equipment.group',

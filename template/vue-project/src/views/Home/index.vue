@@ -1,18 +1,22 @@
 <template>
   <div class="home">
-    <HelloWorld msg="Welcome to Your Vue.js App" />
-    <router-link to="/main">main</router-link>
+    home
+    <div><el-button type="primary" @click="goConsole">控制台</el-button></div>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue';
 
 export default {
   name: 'Home',
-  components: {
-    HelloWorld,
+  methods: {
+    goConsole() {
+      this.$router.push(this.$store.getters.consoleHome);
+    },
+  },
+  created() {
+    this.$store.dispatch('getUserInfo', 'silence');
   },
 };
 </script>

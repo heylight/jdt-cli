@@ -5,13 +5,13 @@ export default {
     requiresAuth: true,
     routeId: 'main',
   },
-  redirect: '/main/equipment/group',
   component: () => import('../views/Main'),
   children: [
     {
       path: 'equipment',
       meta: {
         title: '视频设备管理',
+        icon: 'el-icon-menu',
         routeId: 'main.equipment',
       },
       component: ViewBox,
@@ -48,6 +48,7 @@ export default {
       name: 'main.algorithm',
       meta: {
         title: '算法管理',
+        icon: 'el-icon-menu',
       },
       component: () => import('../views/Main/Algorithm'),
     },
@@ -55,6 +56,7 @@ export default {
       path: 'tasks',
       meta: {
         title: '任务管理',
+        icon: 'el-icon-menu',
         routeId: 'main.tasks',
       },
       component: ViewBox,
@@ -81,6 +83,7 @@ export default {
       path: 'authority',
       meta: {
         title: '权限管理',
+        icon: 'el-icon-menu',
         routeId: 'main.authority',
       },
       component: ViewBox,

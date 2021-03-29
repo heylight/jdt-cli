@@ -1,5 +1,8 @@
 <template>
-  <div class="Group">GroupGroup</div>
+  <div class="Group">
+    <Bread></Bread>
+    GroupGroup
+  </div>
 </template>
 
 <script>

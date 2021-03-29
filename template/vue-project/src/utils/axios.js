@@ -31,7 +31,8 @@ _axios.interceptors.response.use(
     return response.data;
   },
   (error) => {
-    if (error.response.status == 401) {
+    let { status, config } = error.response;
+    if (status == 401 && config.url != '/getUserInfo') {
       router.push({ name: 'login', query: { ReturnUrl: location.pathname } });
     }
     return Promise.reject(error);

@@ -29,12 +29,24 @@ export default {
     returnUrl() {
       return this.$route.query.ReturnUrl || '';
     },
+    authority() {
+      return this.$store.state.authority;
+    },
   },
   methods: {
     login() {
       this.$axios.post('login', this.form).then((res) => {
         if (res.code == 1) {
           this.$router.push(this.returnUrl || '/main');
+          this.$store.dispatch('getUserInfo').then((res2) => {
+            if (res2.code == 1) {
+              if (this.returnUrl) {
+                this.$router.push(this.returnUrl);
+              } else {
+                this.$router.push({ name: this.authority[0] });
+              }
+            }
+          });
         }
       });
     },

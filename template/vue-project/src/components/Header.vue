@@ -1,7 +1,18 @@
 <template>
   <div class="Header">
-    <div class="Header-logo">logo</div>
-    <div class="Header-console">right</div>
+    <div class="Header-logo">
+      <router-link to="/">logo</router-link>
+    </div>
+    <div class="Header-console">
+      <el-dropdown @command="command">
+        <span class="el-dropdown-link">
+          {{ username }}<i class="el-icon-arrow-down el-icon--right"></i>
+        </span>
+        <el-dropdown-menu slot="dropdown">
+          <el-dropdown-item command="out">退出登陆</el-dropdown-item>
+        </el-dropdown-menu>
+      </el-dropdown>
+    </div>
   </div>
 </template>
 
@@ -11,7 +22,23 @@ export default {
   data() {
     return {};
   },
-  methods: {},
+  computed: {
+    username() {
+      return this.$store.state.userInfo.username;
+    },
+  },
+  methods: {
+    loginOut() {
+      this.$axios.post('/loginOut').then((res) => {
+        if (res.code) {
+          this.$router.push({ name: 'login', query: { ReturnUrl: location.pathname } });
+        }
+      });
+    },
+    command(cmd) {
+      if (cmd == 'out') this.loginOut();
+    },
+  },
   created() {},
 };
 </script>
@@ -20,17 +47,23 @@ export default {
 .Header {
   height: 40px;
   line-height: 40px;
-  background-color: #3f3f3f;
+  background-color: #212121;
   color: #fff;
   &-logo {
     width: 200px;
     float: left;
     padding-left: 20px;
+    a {
+      color: #fff;
+    }
   }
   &-console {
     margin-left: 200px;
     text-align: right;
     padding-right: 20px;
+    .el-dropdown {
+      color: #fff;
+    }
   }
 }
 </style>

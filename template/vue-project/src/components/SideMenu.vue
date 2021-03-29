@@ -2,15 +2,14 @@
   <div class="SideMenu">
     <el-menu
       :default-active="active"
-      background-color="#545c64"
+      background-color="#2C2C2D"
       text-color="#fff"
-      active-text-color="#ffd04b"
       @select="selectMenu"
     >
       <template v-for="(item, m) in parseRoute(routes)">
         <el-submenu :index="item.meta.routeId" :key="'m' + m" v-if="item.children">
           <template slot="title">
-            <i class="el-icon-location"></i>
+            <i :class="item.meta.icon || 'el-icon-menu'"></i>
             <span>{{ item.meta.title }}</span>
           </template>
           <el-menu-item
@@ -18,11 +17,11 @@
             v-for="(subItem, n) in parseRoute(item.children)"
             :key="'n' + n"
           >
-            {{ subItem.meta.title }}
+            <span class="subtitle">{{ subItem.meta.title }}</span>
           </el-menu-item>
         </el-submenu>
         <el-menu-item v-else :index="item.name" :key="'m' + m">
-          <i class="el-icon-menu"></i>
+          <i :class="item.meta.icon || 'el-icon-menu'"></i>
           <span slot="title">{{ item.meta.title }}</span>
         </el-menu-item>
       </template>
@@ -83,6 +82,18 @@ export default {
   .el-menu {
     height: 100%;
     border-right: none;
+    .is-active {
+      background-color: #4762fe !important;
+      color: #fff !important;
+    }
+    .subtitle {
+      font-size: 12px;
+      padding-left: 10px;
+    }
+    .el-submenu .el-menu-item {
+      height: 40px;
+      line-height: 40px;
+    }
   }
 }
 </style>

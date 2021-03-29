@@ -1,5 +1,8 @@
 <template>
-  <div class="Device">DeviceDevice</div>
+  <div class="Device">
+    <Bread></Bread>
+    DeviceDevice
+  </div>
 </template>
 
 <script>
