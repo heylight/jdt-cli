@@ -1,10 +1,10 @@
 <template>
-  <div class="Market">Market</div>
+  <div class="Device">DeviceDevice</div>
 </template>
 
 <script>
 export default {
-  name: "Market",
+  name: 'Device',
   data() {
     return {};
   },
@@ -14,7 +14,7 @@ export default {
 </script>
 
 <style lang="scss">
-.Market {
+.Device {
   width: 100%;
 }
 </style>

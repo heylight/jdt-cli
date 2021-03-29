@@ -1,7 +1,7 @@
-import Vue from "vue";
-import VueRouter from "vue-router";
-import store from "../store";
-import Home from "../views/Home";
+import Vue from 'vue';
+import VueRouter from 'vue-router';
+import store from '../store';
+import routes from './routes';
 
 const originalPush = VueRouter.prototype.push;
 VueRouter.prototype.push = function push(location) {
@@ -11,40 +11,50 @@ Vue.use(VueRouter);
 
 const baseRoutes = [
   {
-    path: "/",
-    name: "Home",
-    component: Home,
+    path: '/',
+    redirect: '/main',
   },
   {
-    path: "/about",
-    name: "About",
-    component: () => import("../views/About"),
+    path: '/about',
+    name: 'About',
+    component: () => import('../views/About'),
+  },
+  {
+    path: '/login',
+    name: 'login',
+    component: () => import('../views/Login'),
+  },
+  routes,
+  {
+    path: '/401',
+    name: '401',
+    component: () => import('../views/Errors/401.vue'),
+  },
+  {
+    path: '/*',
+    name: '404',
+    component: () => import('../views/Errors/404.vue'),
   },
 ];
-function newRouter() {
-  return new VueRouter({
-    mode: "history",
-    base: process.env.BASE_URL,
-    routes: baseRoutes,
-  });
-}
-const router = newRouter();
+const router = new VueRouter({
+  mode: 'history',
+  base: process.env.BASE_URL,
+  routes: baseRoutes,
+});
 router.beforeEach((to, from, next) => {
-  if (baseRoutes.find((x) => x.path === to.path)) {
-    next();
-  } else if (!store.state.userInfo.username) {
-    // mock login
-    setTimeout(() => {
-      // 完成登陆
-      store.commit("setState", { userInfo: { username: "xiaoming" } });
-      // 设置 受保护的路由
-      let list = [
-        { path: "/market", component: () => import("../views/Market") },
-      ];
-      baseRoutes.splice(1, 0, ...list);
-      router.matcher = newRouter().matcher;
-      next({ ...to, replace: true });
-    }, 200);
+  let ct1 = to.matched.some((record) => record.meta.requiresAuth);
+  if (ct1) {
+    if (!store.state.userInfo.username) {
+      store.dispatch('getUserInfo').then((res) => {
+        if (res.code == 1) {
+          store.state.authority.includes(to.name) ? next() : next('/401');
+        } else {
+          next({ name: 'login', query: { ReturnUrl: to.fullPath } });
+        }
+      });
+    } else {
+      store.state.authority.includes(to.name) ? next() : next('/401');
+    }
   } else {
     next();
   }

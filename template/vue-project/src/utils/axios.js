@@ -1,6 +1,7 @@
-import Vue from "vue";
-import axios from "axios";
-import { Message } from "element-ui";
+import Vue from 'vue';
+import axios from 'axios';
+import router from '../router';
+import { Message } from 'element-ui';
 
 // Full config:  https://github.com/axios/axios#request-config
 // axios.defaults.baseURL = process.env.baseURL || process.env.apiUrl || '';
@@ -8,7 +9,7 @@ import { Message } from "element-ui";
 // axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 
 const config = {
-  baseURL: "/api",
+  baseURL: '/api',
   // timeout: 60 * 1000, // Timeout
   // withCredentials: true, // Check cross-site Access-Control
 };
@@ -17,7 +18,7 @@ const _axios = axios.create(config);
 
 _axios.interceptors.request.use(
   (config) => config,
-  (error) => Promise.reject(error)
+  (error) => Promise.reject(error),
 );
 
 // Add a response interceptor
@@ -30,8 +31,11 @@ _axios.interceptors.response.use(
     return response.data;
   },
   (error) => {
+    if (error.response.status == 401) {
+      router.push({ name: 'login', query: { ReturnUrl: location.pathname } });
+    }
     return Promise.reject(error);
-  }
+  },
 );
 _axios.upload = (url, data) => {
   const form = new FormData();
@@ -40,7 +44,7 @@ _axios.upload = (url, data) => {
   });
   return _axios.post(url, form, {
     headers: {
-      "Content-Type": "multipart/form-data",
+      'Content-Type': 'multipart/form-data',
     },
   });
 };

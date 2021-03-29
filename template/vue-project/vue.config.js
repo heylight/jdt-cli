@@ -8,19 +8,20 @@ module.exports = {
   },
   productionSourceMap: false,
   devServer: {
-    host: "{{host}}",
-    port: 8020,
+    host: '{{host}}',
+    port: 3001,
+    disableHostCheck: true,
     proxy: {
-      "/api": {
-        target: "{{proxy}}",
+      '/api': {
+        target: '{{proxy}}',
         ws: true,
         changeOrigin: true,
       },
     },
   },
   chainWebpack: (config) => {
-    config.plugin("html").tap((args) => {
-      args[0].title = "智能中台";
+    config.plugin('html').tap((args) => {
+      args[0].title = '后台管理';
       return args;
     });
   },
