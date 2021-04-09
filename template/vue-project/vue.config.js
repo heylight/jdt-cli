@@ -9,11 +9,11 @@ module.exports = {
   productionSourceMap: false,
   devServer: {
     host: '{{host}}',
-    port: 3001,
+    port: 3005,
     disableHostCheck: true,
     proxy: {
       '/api': {
-        target: '{{proxy}}',
+        target: 'http://{{proxy}}', // host 11.50.49.23 proxy.jd.com
         ws: true,
         changeOrigin: true,
       },

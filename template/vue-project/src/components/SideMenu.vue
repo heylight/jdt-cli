@@ -7,7 +7,7 @@
       @select="selectMenu"
     >
       <template v-for="(item, m) in parseRoute(routes)">
-        <el-submenu :index="item.meta.routeId" :key="'m' + m" v-if="item.children">
+        <el-submenu :index="'m' + m" :key="'m' + m" v-if="item.children">
           <template slot="title">
             <i :class="item.meta.icon || 'el-icon-menu'"></i>
             <span>{{ item.meta.title }}</span>
@@ -31,6 +31,7 @@
 
 <script>
 import routes from '../router/routes';
+import { filterMenu } from '../utils';
 export default {
   name: 'SideMenu',
   data() {
@@ -43,26 +44,14 @@ export default {
       return this.$store.state.authority;
     },
     active() {
-      return this.$route.name;
+      let name = this.$route.name || '';
+      let arr = name.split('.').slice(0, 3);
+      return arr.join('.');
     },
   },
   methods: {
-    parseRoute(route) {
-      return route.filter((x) => {
-        let name = x.name || x.meta.routeId;
-        let nameArr = name.split('.');
-        let flag = false;
-        if (x.meta.exclude) return false;
-        for (let m = 0; m < this.authority.length; m++) {
-          let el = this.authority[m];
-          let elArr = el.split('.');
-          if (el === name || (elArr.length > nameArr.length && el.startsWith(name + '.'))) {
-            flag = true;
-            break;
-          }
-        }
-        return flag;
-      });
+    parseRoute(routes) {
+      return filterMenu(routes, this.authority);
     },
     selectMenu(name) {
       this.$router.push({ name });

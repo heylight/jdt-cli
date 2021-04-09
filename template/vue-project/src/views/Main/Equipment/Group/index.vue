@@ -1,7 +1,7 @@
 <template>
   <div class="Group">
     <Bread></Bread>
-    GroupGroup
+    <el-button type="primary" @click="goSub">点击进入二级页面</el-button>
   </div>
 </template>
 
@@ -11,7 +11,11 @@ export default {
   data() {
     return {};
   },
-  methods: {},
+  methods: {
+    goSub() {
+      this.$router.push({ name: 'main.equipment.group.sub-page' });
+    },
+  },
   created() {},
 };
 </script>

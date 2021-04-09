@@ -1,12 +1,16 @@
 <template>
   <div :class="['Bread', { not: not === '' }]">
-    <div v-for="(item, m) in BreadList" :key="m" :title="item.title" class="Bread-link">
-      <span v-if="m !== BreadList.length - 1" class="Bread-item">
-        {{ item.title | short10 }}
-      </span>
-      <span v-else class="Bread-item Bread-item-last">{{ item.title | short10 }}</span>
+    <div
+      v-show="!($slots.default && $slots.default.length)"
+      v-for="(item, m) in BreadList"
+      :key="m"
+      :title="item.title"
+      class="Bread-link"
+    >
+      <span class="Bread-item">{{ item.title | short10 }}</span>
       <span v-if="m !== BreadList.length - 1" class="gang">/</span>
     </div>
+    <slot></slot>
   </div>
 </template>
 
@@ -80,15 +84,16 @@ export default {
   &-item {
     display: inline-block;
     text-decoration: none;
-    padding: 0 5px;
+    padding: 0 8px 0 5px;
     text-align: center;
     color: #97a3b4;
-    &-last {
+    &:last-of-type {
       color: #333;
     }
   }
   .gang {
     color: #97a3b4;
+    padding-right: 5px;
   }
 }
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <div class="Authority">Authority</div>
+  <div class="Authority"><Bread />Authority</div>
 </template>
 
 <script>

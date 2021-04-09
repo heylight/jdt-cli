@@ -31,6 +31,7 @@ export default new Vuex.Store({
               // 用户有权访问的路由，从后端接口获取
               authority: [
                 'main.equipment.group',
+                'main.equipment.group.sub-page',
                 'main.equipment.device',
                 'main.equipment.overview',
                 'main.algorithm',

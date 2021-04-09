@@ -3,7 +3,6 @@ export default {
   path: '/main',
   meta: {
     requiresAuth: true,
-    routeId: 'main',
   },
   component: () => import('../views/Main'),
   children: [
@@ -12,7 +11,6 @@ export default {
       meta: {
         title: '视频设备管理',
         icon: 'el-icon-menu',
-        routeId: 'main.equipment',
       },
       component: ViewBox,
       children: [
@@ -21,9 +19,17 @@ export default {
           name: 'main.equipment.group',
           meta: {
             title: '设备组管理',
-            exclude: false, // 是否在菜单中显示
           },
           component: () => import('../views/Main/Equipment/Group'),
+        },
+        {
+          path: 'group/sub-page',
+          name: 'main.equipment.group.sub-page',
+          meta: {
+            title: '二级页面',
+            exclude: true, // 是否在菜单中显示,  true 不显示
+          },
+          component: () => import('../views/Main/Equipment/Group/SubPage'),
         },
         {
           path: 'device',
@@ -57,7 +63,6 @@ export default {
       meta: {
         title: '任务管理',
         icon: 'el-icon-menu',
-        routeId: 'main.tasks',
       },
       component: ViewBox,
       children: [
@@ -84,7 +89,6 @@ export default {
       meta: {
         title: '权限管理',
         icon: 'el-icon-menu',
-        routeId: 'main.authority',
       },
       component: ViewBox,
       children: [

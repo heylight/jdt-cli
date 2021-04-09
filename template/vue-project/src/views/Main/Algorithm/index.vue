@@ -1,5 +1,5 @@
 <template>
-  <div class="Algorithm">Algorithm</div>
+  <div class="Algorithm"><Bread />Algorithm</div>
 </template>
 
 <script>
