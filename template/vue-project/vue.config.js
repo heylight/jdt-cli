@@ -13,7 +13,7 @@ module.exports = {
     disableHostCheck: true,
     proxy: {
       '/api': {
-        target: 'http://{{proxy}}/', // host 11.50.49.23 proxy.jd.com
+        target: 'http://{{proxy}}/', // 内网host 11.50.49.23 proxy.jd.com
         ws: true,
         changeOrigin: true,
       },

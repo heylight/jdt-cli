@@ -6,7 +6,7 @@
       text-color="#fff"
       @select="selectMenu"
     >
-      <template v-for="(item, m) in parseRoute(routes)">
+      <template v-for="(item, m) in filterMenu(routes)">
         <el-submenu :index="'m' + m" :key="'m' + m" v-if="item.children">
           <template slot="title">
             <i :class="item.meta.icon || 'el-icon-menu'"></i>
@@ -14,7 +14,7 @@
           </template>
           <el-menu-item
             :index="subItem.name"
-            v-for="(subItem, n) in parseRoute(item.children)"
+            v-for="(subItem, n) in filterMenu(item.children)"
             :key="'n' + n"
           >
             <span class="subtitle">{{ subItem.meta.title }}</span>
@@ -40,9 +40,6 @@ export default {
     };
   },
   computed: {
-    authority() {
-      return this.$store.state.authority;
-    },
     active() {
       let name = this.$route.name || '';
       let arr = name.split('.').slice(0, 3);
@@ -50,9 +47,7 @@ export default {
     },
   },
   methods: {
-    parseRoute(routes) {
-      return filterMenu(routes, this.authority);
-    },
+    filterMenu,
     selectMenu(name) {
       this.$router.push({ name });
     },

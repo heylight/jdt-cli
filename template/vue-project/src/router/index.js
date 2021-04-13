@@ -44,16 +44,24 @@ const router = new VueRouter({
 });
 router.beforeEach((to, from, next) => {
   if (to.matched.some((record) => record.meta.requiresAuth)) {
-    if (!store.state.userInfo.username) {
+    const { authority, routePermission } = store.state;
+    let judge = () => {
+      if (routePermission) {
+        authority.includes(to.name) ? next() : next('/401');
+      } else {
+        next();
+      }
+    };
+    if (store.state.userInfo.username) {
+      judge();
+    } else {
       store.dispatch('getUserInfo').then((res) => {
         if (res.code == 1) {
-          store.state.authority.includes(to.name) ? next() : next('/401');
+          judge();
         } else {
           next({ name: 'login', query: { ReturnUrl: to.fullPath } });
         }
       });
-    } else {
-      store.state.authority.includes(to.name) ? next() : next('/401');
     }
   } else {
     next();
