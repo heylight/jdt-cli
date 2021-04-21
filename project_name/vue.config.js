@@ -8,12 +8,12 @@ module.exports = {
   },
   productionSourceMap: false,
   devServer: {
-    host: '{{host}}',
+    host: 't.jd.com',
     port: 3050,
     disableHostCheck: true,
     proxy: {
       '/api': {
-        target: 'http://{{proxy}}/', // 内网host提供mock接口 11.50.49.23 proxy.jd.com
+        target: 'http://proxy.jd.com/', // 内网host提供mock接口 11.50.49.23 proxy.jd.com
         ws: true,
         changeOrigin: true,
       },
