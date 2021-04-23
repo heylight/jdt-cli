@@ -9,6 +9,7 @@
 <script>
 import Header from '@/components/Header';
 import SideMenu from '@/components/SideMenu';
+
 export default {
   name: 'Main',
   data() {

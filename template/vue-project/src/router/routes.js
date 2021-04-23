@@ -79,7 +79,7 @@ export default {
           path: 'events',
           name: 'main.tasks.events',
           meta: {
-            title: '任务管理',
+            title: '任务事件',
           },
           component: () => import('../views/Main/Tasks/Events'),
         },
