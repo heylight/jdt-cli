@@ -1,6 +1,6 @@
 {
   "name": "jdt-cli",
-  "version": "2.1.11",
+  "version": "2.1.12",
   "description": "",
   "bin": {
     "jdt": "bin/jdt"
