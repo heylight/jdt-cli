@@ -17,7 +17,4 @@ export default {
 </script>
 
 <style lang="scss">
-.Group {
-  width: 100%;
-}
 </style>

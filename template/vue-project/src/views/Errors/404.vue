@@ -14,7 +14,4 @@ export default {
 </script>
 
 <style lang="scss">
-.p404 {
-  width: 100%;
-}
 </style>

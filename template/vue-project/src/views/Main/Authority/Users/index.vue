@@ -14,7 +14,4 @@ export default {
 </script>
 
 <style lang="scss">
-.Users {
-  width: 100%;
-}
 </style>

@@ -23,7 +23,4 @@ export default {
 </script>
 
 <style lang="scss">
-.SubPage {
-  width: 100%;
-}
 </style>

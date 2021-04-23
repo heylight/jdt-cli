@@ -20,7 +20,4 @@ export default {
 </script>
 
 <style lang="scss">
-.P401 {
-  width: 100%;
-}
 </style>

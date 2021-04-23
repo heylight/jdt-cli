@@ -27,6 +27,7 @@ export default {
   &-Con {
     margin-left: 200px;
     height: 100%;
+    overflow: auto;
   }
 }
 </style>
