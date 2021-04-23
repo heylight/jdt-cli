@@ -1,8 +1,10 @@
 import inquirer from "inquirer";
 import handle from "./handle";
+import updateNotifier from "update-notifier";
 import pkgjson from "../package.json";
 
 export function cli(args) {
+  updateNotifier({ pkg: pkgjson }).notify();
   console.log("京东科技 前端项目生成工具 v" + pkgjson.version);
   inquirer
     .prompt([

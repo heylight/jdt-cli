@@ -1,6 +1,6 @@
 {
   "name": "jdt-cli",
-  "version": "2.1.7",
+  "version": "2.1.8",
   "description": "",
   "bin": {
     "jdt": "bin/jdt"
@@ -19,6 +19,7 @@
     "fs-extra": "^9.1.0",
     "handlebars": "^4.7.6",
     "inquirer": "^7.3.3",
+    "update-notifier": "^5.1.0",
     "write": "^2.0.0"
   },
   "homepage": "https://github.com:heylight/jdt-cli",
