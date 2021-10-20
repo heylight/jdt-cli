@@ -17,11 +17,11 @@ module.exports = {
   },
   productionSourceMap: false,
   devServer: {
-    host: process.env.VUE_APP_HOST,
+    host: '{{host}}',
     port: 8020,
     proxy: {
       "/api": {
-        target: "http://ai-qc.jdcloud.com",
+        target: 'http://{{proxy}}/',
         ws: true,
         changeOrigin: true,
       },
@@ -29,7 +29,7 @@ module.exports = {
   },
   chainWebpack: (config) => {
     config.plugin("html").tap((args) => {
-      args[0].title = "宇海质检";
+      args[0].title = "后台管理";
       return args;
     });
   },

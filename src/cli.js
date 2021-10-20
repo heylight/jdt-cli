@@ -18,7 +18,7 @@ export function cli(args) {
         type: "list",
         name: "template",
         message: "choose a template",
-        choices: ["vue-project", "multi-page"],
+        choices: ["vue-project", "multi-page", "vue3-project"],
         default: "vue-project",
       },
       {
@@ -27,7 +27,10 @@ export function cli(args) {
         message: "host",
         default: "t.jd.com",
         when(answers) {
-          return answers.template === "vue-project";
+          return (
+            answers.template === "vue-project" ||
+            answers.template === "vue3-project"
+          );
         },
       },
       {
@@ -36,7 +39,10 @@ export function cli(args) {
         message: "proxy",
         default: "proxy.jd.com",
         when(answers) {
-          return answers.template === "vue-project";
+          return (
+            answers.template === "vue-project" ||
+            answers.template === "vue3-project"
+          );
         },
       },
       {

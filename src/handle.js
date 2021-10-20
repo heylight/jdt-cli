@@ -10,7 +10,10 @@ async function copyConfig(to, answers) {
   await write(path.join(to, "package.json"), compile(pkg)(answers), {
     overwrite: true,
   });
-  if (answers.template === "vue-project") {
+  if (
+    answers.template === "vue-project" ||
+    answers.template === "vue3-project"
+  ) {
     let env = fse.readFileSync(path.join(to, "vue.config.js"), "utf-8");
     await write(path.join(to, "vue.config.js"), compile(env)(answers), {
       overwrite: true,
