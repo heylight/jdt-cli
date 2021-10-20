@@ -1,0 +1,140 @@
+.cpt {
+  &-base {
+    width: 88px;
+    height: 40px;
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 12px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    box-shadow: none;
+    user-select: none;
+    &:hover {
+      cursor: grab;
+    }
+    &:active {
+      cursor: grabbing;
+    }
+    &.circle {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: 1px solid #999;
+      background-color: #fff;
+      &.on,
+      &:hover,
+      &.node-on {
+        border: 1px solid #4059f7;
+        background-color: #d6d9f6;
+      }
+    }
+    &.ellipse {
+      border-radius: 50%;
+      border: 1px solid #999;
+      background-color: #fff;
+      &.on,
+      &:hover,
+      &.node-on {
+        border: 1px solid #4059f7;
+        background-color: #d6d9f6;
+      }
+    }
+    &.hexagon {
+      background-image: url(~@/assets/image/shape/hexagon.svg);
+      &.on,
+      &:hover,
+      &.node-on {
+        background-image: url(~@/assets/image/shape/hexagon-hover.svg);
+      }
+    }
+    &.trapesoid {
+      background-image: url(~@/assets/image/shape/trapesoid.svg);
+      &.on,
+      &:hover,
+      &.node-on {
+        background-image: url(~@/assets/image/shape/trapesoid-hover.svg);
+      }
+    }
+    &.trapesoid2 {
+      background-image: url(~@/assets/image/shape/trapesoid2.svg);
+      &.on,
+      &:hover,
+      &.node-on {
+        background-image: url(~@/assets/image/shape/trapesoid2-hover.svg);
+      }
+    }
+    &.rect {
+      border: 1px solid #999;
+      background-color: #fff;
+      &.on,
+      &:hover,
+      &.node-on {
+        border: 1px solid #4059f7;
+        background-color: #d6d9f6;
+      }
+    }
+    &.diamond {
+      background-image: url(~@/assets/image/shape/diamond.svg);
+      &.on,
+      &:hover,
+      &.node-on {
+        background-image: url(~@/assets/image/shape/diamond-hover.svg);
+      }
+    }
+    &.diamond2 {
+      background-image: url(~@/assets/image/shape/diamond2.svg);
+      &.on,
+      &:hover,
+      &.node-on {
+        background-image: url(~@/assets/image/shape/diamond2-hover.svg);
+      }
+    }
+  }
+  &-name {
+    max-width: 90%;
+    height: 14px;
+    text-align: center;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    word-break: break-all;
+    user-select: none;
+  }
+}
+#container {
+  .jtk-overlay {
+    max-width: 90px;
+    text-align: center;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    word-break: break-all;
+    user-select: none;
+    background: rgb(255, 255, 255);
+    border-radius: 3px;
+    padding: 2px 5px;
+    border: 1px solid rgb(220, 220, 220);
+  }
+  .cpt-name:not(.none) {
+    cursor: crosshair;
+  }
+  svg.connector-on path {
+    stroke: #6c81fe;
+    stroke-width: 2;
+  }
+  [data-type='1'][data-source='1'] * {
+    cursor: grab;
+  }
+  [data-mode='START'][data-source='1'] * {
+    cursor: grab;
+  }
+  [data-mode='END'][data-target='1'] * {
+    cursor: grab;
+  }
+  [data-type='2'][data-source='1'] * {
+    cursor: grab;
+  }
+}

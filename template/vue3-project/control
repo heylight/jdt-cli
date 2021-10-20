@@ -1,0 +1,108 @@
+#!/bin/bash
+cd "$(dirname $0)"/.. || exit 1
+SERVER_NAME=127.0.0.1 #访问前端地址
+PROC_PORT=80
+PROC_URI= #可以用于curl访问的URI，用来判断程序是否完全启动，建议填写，写法如/healhcheck，不填则只通过检查端口是否listen了，来判断是否启动成功
+RESPONSE=200 #需要从返回结果里面获取的值 curl -is "http://localhost:$PROC_PORT/$PROC_URI" 用这个查看确认
+WAIT_TIME=30 # 程序完全启动的最长等待秒数,如果在起期间内健康检查一直不成功则认为启动失败
+PROC_NAME=nginx
+NGINX_PATH=/usr/sbin/nginx
+#NGINX_CONF=$NGINX_PATH/conf/conf.d/nginx.conf
+
+if [ -f default_env.sh ];then
+    source default_env.sh
+fi
+
+help(){
+    echo "${0} <start|stop|restart|status>"
+    exit 1
+}
+
+checkhealth(){
+  return 0
+# if [[ -n "$SERVER_NAME" ]] ; then
+#        curl -is "http://$SERVER_NAME:$PROC_PORT" | grep "$RESPONSE" >/dev/null 2>&1
+#        if [ "$?" = 0 ] ; then
+#        echo "running"
+#        return 0
+#        fi
+#        echo "not running"
+#        return 1
+#
+#else
+#         ps -eo comm,pid |grep -P  "$PROC_NAME"
+#                if [ "$?" = 0 ] ; then
+#                echo "running"
+#                return 0
+#                fi
+#               echo "not running"
+#               return 1
+#
+#fi
+}
+
+start(){
+    path=`pwd`
+    echo $path
+    proc=`ps -aef| grep 'nginx' |grep master | grep -v grep | awk '{print $2}'`
+    echo "Nginx is running..."
+
+#    if [ -f "$path/nginx.conf" ]
+#    then
+#        echo y |cp -f $path/nginx.conf $NGINX_CONF
+#    else
+#        echo "$PROC_NAME conf does not exit."
+#        return 1
+#    fi
+
+    #sed -i "s|PACKAGE_PATH|$path/build|g" $NGINX_CONF
+
+    result=`$NGINX_PATH/sbin/nginx -s reload`
+    echo "Reload $PROC_NAME conf..."
+    sleep 5
+    for i in $(seq $WAIT_TIME) ; do
+        sleep 1
+        checkhealth
+        if [ $? = 0 ]; then
+            echo "Load $PROC_NAME conf success"
+            return 0
+        fi
+        echo "Loading $PROC_NAME"
+    done
+    echo "[ERROR] Load $PROC_NAME conf failed"
+    return 1
+}
+
+stop(){
+#    path=`pwd`
+#    echo $path
+#    proc=`ps -aef| grep 'nginx' |grep master | grep -v grep | awk '{print $2}'`
+#    echo "$PROC_NAME is running..."
+#    echo $proc
+#    if [ -n "$proc" ]
+#    then
+#        echo y |cp -f $NGINX_CONF $NGINX_CONF.bak
+#        echo "Backup the $PROC_NAME conf..."
+#    else
+#        echo "$PROC_NAME is not running now."
+#    fi
+    return 0
+}
+
+case "${1}" in
+    start)
+        stop && start
+        ;;
+    stop)
+        stop
+        ;;
+    status|health|checkhealth)
+        checkhealth
+        ;;
+    restart)
+        stop && start
+        ;;
+    *)
+        help
+        ;;
+esac
