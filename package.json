@@ -3,7 +3,7 @@
   "version": "2.1.13",
   "description": "",
   "bin": {
-    "jxd": "bin/jdt"
+    "jdt": "bin/jdt"
   },
   "scripts": {
     "test": "node ./bin/jdt"
