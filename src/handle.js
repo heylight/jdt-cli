@@ -18,6 +18,16 @@ async function copyConfig(to, answers) {
     await write(path.join(to, "vue.config.js"), compile(env)(answers), {
       overwrite: true,
     });
+  } else if (answers.template === "react-project") {
+    let env = fse.readFileSync(path.join(to, "vite.config.js"), "utf-8");
+    await write(path.join(to, "vite.config.js"), compile(env)(answers), {
+      overwrite: true,
+    });
+  } else if (answers.template === "react-ts-project") {
+    let env = fse.readFileSync(path.join(to, "vite.config.ts"), "utf-8");
+    await write(path.join(to, "vite.config.ts"), compile(env)(answers), {
+      overwrite: true,
+    });
   }
 
   if (answers.install) {
@@ -26,11 +36,22 @@ async function copyConfig(to, answers) {
       const { frames } = cliSpinners.dots;
       process.stdout.write(`\r${frames[(i = ++i % frames.length)]} install...`);
     }, cliSpinners.dots.interval);
-    exec(`cd ${answers.name}&&npm i`, function (err) {
-      clearInterval(spin);
-      process.stdout.clearLine();
-      console.log("\n完成!\n");
-    });
+    if (
+      answers.template === "react-project" ||
+      answers.template === "react-ts-project"
+    ) {
+      exec(`cd ${answers.name}&&yarn`, function (err) {
+        clearInterval(spin);
+        process.stdout.clearLine();
+        console.log("\n完成!\n");
+      });
+    } else {
+      exec(`cd ${answers.name}&&npm i`, function (err) {
+        clearInterval(spin);
+        process.stdout.clearLine();
+        console.log("\n完成!\n");
+      });
+    }
   }
 }
 function handle(answers) {

@@ -18,7 +18,13 @@ export function cli(args) {
         type: "list",
         name: "template",
         message: "choose a template",
-        choices: ["vue-project", "multi-page", "vue3-project"],
+        choices: [
+          "vue-project",
+          "multi-page",
+          "vue3-project",
+          "react-project",
+          "react-ts-project",
+        ],
         default: "vue-project",
       },
       {
@@ -29,7 +35,9 @@ export function cli(args) {
         when(answers) {
           return (
             answers.template === "vue-project" ||
-            answers.template === "vue3-project"
+            answers.template === "vue3-project" ||
+            answers.template === "react-project" ||
+            answers.template === "react-ts-project"
           );
         },
       },
@@ -41,7 +49,9 @@ export function cli(args) {
         when(answers) {
           return (
             answers.template === "vue-project" ||
-            answers.template === "vue3-project"
+            answers.template === "vue3-project" ||
+            answers.template === "react-project" ||
+            answers.template === "react-ts-project"
           );
         },
       },
