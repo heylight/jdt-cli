@@ -38,7 +38,8 @@ async function copyConfig(to, answers) {
     }, cliSpinners.dots.interval);
     if (
       answers.template === "react-project" ||
-      answers.template === "react-ts-project"
+      answers.template === "react-ts-project" ||
+      answers.template === "vue3-project"
     ) {
       exec(`cd ${answers.name}&&yarn`, function (err) {
         clearInterval(spin);
