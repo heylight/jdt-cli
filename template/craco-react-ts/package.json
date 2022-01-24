@@ -1,0 +1,66 @@
+{
+  "name": "cra-react-carco",
+  "version": "0.1.0",
+  "scripts": {
+    "analyze": "REACT_APP_INTERACTIVE_ANALYZE=1 yarn build",
+    "start": "craco start",
+    "build": "craco build",
+    "test": "craco test",
+    "eject": "react-scripts eject",
+    "lint": "eslint . --ext .js,.ts,.jsx,tsx --ignore-path .gitignore",
+    "prepare": "husky install"
+  },
+  "dependencies": {
+    "@craco/craco": "^6.4.3",
+    "@reduxjs/toolkit": "^1.7.1",
+    "@testing-library/jest-dom": "^5.14.1",
+    "@testing-library/react": "^12.0.0",
+    "@testing-library/user-event": "^13.2.1",
+    "ahooks": "^3.1.5",
+    "antd": "^4.18.2",
+    "axios": "^0.24.0",
+    "craco-less": "^2.0.0",
+    "dayjs": "^1.10.7",
+    "less": "^4.1.2",
+    "less-loader": "^10.2.0",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-redux": "^7.2.6",
+    "react-router": "^5.2.0",
+    "react-router-dom": "^5.2.0",
+    "react-scripts": "5.0.0",
+    "web-vitals": "^2.1.0"
+  },
+  "devDependencies": {
+    "@types/craco__craco": "^6.4.0",
+    "@types/node": "^17.0.8",
+    "@types/react": "^17.0.38",
+    "@types/react-dom": "^17.0.10",
+    "@types/react-redux": "^7.1.21",
+    "@types/react-router": "^5.1.17",
+    "@types/react-router-dom": "^5.3.2",
+    "@umijs/fabric": "^2.10.0",
+    "@vitejs/plugin-react": "^1.1.4",
+    "husky": "^7.0.4",
+    "typescript": "^4.4.4",
+    "webpack-bundle-analyzer": "^4.5.0"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}
