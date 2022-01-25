@@ -10,29 +10,35 @@ async function copyConfig(to, answers) {
   await write(path.join(to, "package.json"), compile(pkg)(answers), {
     overwrite: true,
   });
-  if (
-    answers.template === "vue-project" ||
-    answers.template === "vue3-project"
-  ) {
-    let env = fse.readFileSync(path.join(to, "vue.config.js"), "utf-8");
-    await write(path.join(to, "vue.config.js"), compile(env)(answers), {
-      overwrite: true,
-    });
-  } else if (answers.template === "react-project") {
-    let env = fse.readFileSync(path.join(to, "vite.config.js"), "utf-8");
-    await write(path.join(to, "vite.config.js"), compile(env)(answers), {
-      overwrite: true,
-    });
-  } else if (answers.template === "react-ts-project") {
-    let env = fse.readFileSync(path.join(to, "vite.config.ts"), "utf-8");
-    await write(path.join(to, "vite.config.ts"), compile(env)(answers), {
-      overwrite: true,
-    });
-  } else if (answers.template === "craco-react-ts") {
-    let env = fse.readFileSync(path.join(to, "craco.config.js"), "utf-8");
-    await write(path.join(to, "craco.config.js"), compile(env)(answers), {
-      overwrite: true,
-    });
+  let env;
+  switch (answers.template) {
+    case "vue-project":
+    case "vue3-project":
+      env = fse.readFileSync(path.join(to, "vue.config.js"), "utf-8");
+      await write(path.join(to, "vue.config.js"), compile(env)(answers), {
+        overwrite: true,
+      });
+      break;
+    case "react-project":
+      env = fse.readFileSync(path.join(to, "vite.config.js"), "utf-8");
+      await write(path.join(to, "vite.config.js"), compile(env)(answers), {
+        overwrite: true,
+      });
+      break;
+    case "react-ts-project":
+      env = fse.readFileSync(path.join(to, "vite.config.ts"), "utf-8");
+      await write(path.join(to, "vite.config.ts"), compile(env)(answers), {
+        overwrite: true,
+      });
+      break;
+    case "craco-react-ts":
+      env = fse.readFileSync(path.join(to, "craco.config.js"), "utf-8");
+      await write(path.join(to, "craco.config.js"), compile(env)(answers), {
+        overwrite: true,
+      });
+      break;
+    default:
+      break;
   }
 
   if (answers.install) {
@@ -41,23 +47,24 @@ async function copyConfig(to, answers) {
       const { frames } = cliSpinners.dots;
       process.stdout.write(`\r${frames[(i = ++i % frames.length)]} install...`);
     }, cliSpinners.dots.interval);
-    if (
-      answers.template === "react-project" ||
-      answers.template === "react-ts-project" ||
-      answers.template === "vue3-project" ||
-      answers.template === "craco-react-ts"
-    ) {
-      exec(`cd ${answers.name}&&yarn`, function (err) {
-        clearInterval(spin);
-        process.stdout.clearLine();
-        console.log("\n完成!\n");
-      });
-    } else {
-      exec(`cd ${answers.name}&&npm i`, function (err) {
-        clearInterval(spin);
-        process.stdout.clearLine();
-        console.log("\n完成!\n");
-      });
+    switch (answers.template) {
+      case "react-project":
+      case "react-ts-project":
+      case "vue3-project":
+      case "craco-react-ts":
+        exec(`cd ${answers.name}&&yarn`, function (err) {
+          clearInterval(spin);
+          process.stdout.clearLine();
+          console.log("\n完成!\n");
+        });
+        break;
+      default:
+        exec(`cd ${answers.name}&&npm i`, function (err) {
+          clearInterval(spin);
+          process.stdout.clearLine();
+          console.log("\n完成!\n");
+        });
+        break;
     }
   }
 }
