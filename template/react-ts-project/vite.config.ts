@@ -12,11 +12,11 @@ export default defineConfig(() => ({
     }),
   ],
   server: {
-    host: "t.jdcloud.com",
+    host: "{{host}}",
     port: 4000,
     proxy: {
       "/api": {
-        target: "http://localhost:9000",
+        target: "http://{{proxy}}",
         changeOrigin: true,
         // rewrite: (reqPath) => reqPath.replace(/^\/api/, ""),
       },
