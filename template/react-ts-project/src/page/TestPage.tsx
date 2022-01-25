@@ -1,5 +1,5 @@
-import React, { useEffect, useMemo, useCallback } from "react";
-import { useHistory, useLocation } from "react-router-dom";
+import React, { useMemo } from "react";
+import { useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import {
   decrement,
@@ -9,11 +9,11 @@ import {
 import { Button, Input } from "antd";
 import { useDebounceFn } from "ahooks";
 import type { RootState } from "@/store";
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import _axios from "@/utils/axios";
 
-function TestPage() {
+const TestPage = () => {
   const history = useHistory();
-  const location = useLocation();
   const count = useSelector((state: RootState) => state.counter.value);
   const dispatch = useDispatch();
   const { run: input2Increase } = useDebounceFn(
@@ -52,7 +52,7 @@ function TestPage() {
       <Input
         placeholder="输入数字以改变count，输入1为+1，输入-1为-1"
         onChange={input2Increase}
-      ></Input>
+      />
       <div>{doubleCount}</div>
       <Button onClick={goBack}>返回</Button>
     </>

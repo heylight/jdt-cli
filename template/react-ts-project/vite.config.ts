@@ -1,18 +1,24 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import path from "path";
+import eslintPlugin from "vite-plugin-eslint";
 
 // https://vitejs.dev/config/
-export default defineConfig({
-  plugins: [react()],
+export default defineConfig(() => ({
+  plugins: [
+    react(),
+    eslintPlugin({
+      include: ["./src/**/*.ts", ".src/**/*.tsx"],
+    }),
+  ],
   server: {
-    host: "{{host}}",
+    host: "t.jdcloud.com",
     port: 4000,
     proxy: {
       "/api": {
-        target: "http://{{proxy}}/",
+        target: "http://localhost:9000",
         changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/api/, ""),
+        // rewrite: (reqPath) => reqPath.replace(/^\/api/, ""),
       },
     },
   },
@@ -31,4 +37,4 @@ export default defineConfig({
       },
     },
   },
-});
+}));

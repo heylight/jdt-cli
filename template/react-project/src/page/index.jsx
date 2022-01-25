@@ -1,13 +1,13 @@
-import React, { useState, useEffect, useRef, useMemo } from "react";
-import { useLocation, useHistory } from "react-router-dom";
+import React, { useState, useRef } from "react";
+import { useHistory } from "react-router-dom";
+// eslint-disable-next-line no-unused-vars
 import _axios from "@/utils/axios";
 import dayjs from "dayjs";
 import { useStore } from "react-redux";
 
-function index() {
+const Index = () => {
   const nowTime = dayjs(new Date()).format("YYYY/MM/DD HH:mm:ss");
   const store = useStore();
-  const location = useLocation();
   const history = useHistory();
   const reduxState = store.getState();
   const [localCounter, setLocalCounter] = useState(1);
@@ -45,6 +45,6 @@ function index() {
       <button onClick={goTest}>去测试页</button>
     </>
   );
-}
+};
 
-export default index;
+export default Index;

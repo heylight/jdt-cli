@@ -8,10 +8,10 @@ interface LayoutProps {
   children: any;
 }
 
-function index({ children }: LayoutProps) {
+const Index = ({ children }: LayoutProps) => {
   return (
     <div className={styles.layout}>
-      <Header></Header>
+      <Header />
       <div className={styles.content}>
         <Content>{children}</Content>
       </div>
@@ -19,4 +19,4 @@ function index({ children }: LayoutProps) {
   );
 }
 
-export default index;
+export default Index;

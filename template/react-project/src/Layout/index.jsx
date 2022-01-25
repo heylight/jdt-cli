@@ -4,16 +4,16 @@ import Header from "./Header";
 import Content from "./Content";
 import styles from "./index.module.less";
 
-function index({ children }) {
+const Index = ({ children }) => {
   return (
     <div className={styles.layout}>
-      <Header></Header>
+      <Header />
       <div className={styles.content}>
         {/* <Sider></Sider> */}
         <Content>{children}</Content>
       </div>
     </div>
   );
-}
+};
 
-export default index;
+export default Index;

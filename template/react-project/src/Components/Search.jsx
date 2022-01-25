@@ -1,21 +1,38 @@
-import React from "react";
-import { Form, Input, Button } from "antd";
+import React, { useRef } from "react";
+import { Form, Button } from "antd";
 
-function Search({
+const Search = ({
   onSearch,
   onClear,
   children,
   createBtnTitle,
   createBtnFunc,
-}) {
+  form,
+  labelSpan,
+  wrapperSpan,
+}) => {
   const [searchForm] = Form.useForm();
   const clear = () => {
-    onClear();
     searchForm.resetFields();
+    form.clearForm();
+    onClear();
+  };
+  const submit = () => {
+    form.setForm(searchForm.getFieldsValue());
+    onSearch();
+  };
+  const formLayout = {
+    labelCol: labelSpan ? { span: labelSpan } : undefined,
+    wrapperCol: wrapperSpan ? { span: wrapperSpan } : undefined,
   };
   return (
     <div style={{ padding: 12, clear: "both" }}>
-      <Form form={searchForm} name="searchForm" labelAlign="left">
+      <Form
+        form={searchForm}
+        name="searchForm"
+        labelAlign="right"
+        {...formLayout}
+      >
         <div
           style={{
             display: "flex",
@@ -25,9 +42,7 @@ function Search({
           }}
         >
           {children}
-        </div>
-        <div style={{ float: "left" }}>
-          <Button type="primary" onClick={onSearch}>
+          <Button type="primary" onClick={submit}>
             查询
           </Button>
           <Button style={{ marginLeft: 10 }} onClick={clear}>
@@ -42,16 +57,49 @@ function Search({
       </Form>
     </div>
   );
-}
+};
 
-Search.Item = function ({ name, label, children, br }) {
+Search.Item = ({
+  name,
+  label,
+  children,
+  br,
+  width,
+  labelSpan,
+  wrapperSpan,
+}) => {
+  const itemLayout = {
+    labelCol: labelSpan ? { span: labelSpan } : undefined,
+    wrapperCol: wrapperSpan ? { span: wrapperSpan } : undefined,
+  };
   return (
-    <div style={{ width: 400, marginRight: 10 }}>
-      <Form.Item label={label} name={name}>
-        {children}
-      </Form.Item>
-    </div>
+    <>
+      <div style={{ width: br ? "80%" : width || 400, marginRight: 10 }}>
+        <Form.Item
+          label={label}
+          name={name}
+          style={{ width: width || 400 }}
+          labelAlign="right"
+          {...itemLayout}
+        >
+          {children}
+        </Form.Item>
+      </div>
+    </>
   );
+};
+
+Search.useSearchForm = () => {
+  const formValue = useRef({});
+  const getValue = () => formValue.current;
+  const setForm = (value) => (formValue.current = value);
+  const clearForm = () => (formValue.current = {});
+  const searchForm = {
+    getValue,
+    setForm,
+    clearForm,
+  };
+  return searchForm;
 };
 
 export default Search;

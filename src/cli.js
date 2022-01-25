@@ -24,6 +24,7 @@ export function cli(args) {
           "vue3-project",
           "react-project",
           "react-ts-project",
+          "craco-react-ts",
         ],
         default: "vue-project",
       },
@@ -37,7 +38,8 @@ export function cli(args) {
             answers.template === "vue-project" ||
             answers.template === "vue3-project" ||
             answers.template === "react-project" ||
-            answers.template === "react-ts-project"
+            answers.template === "react-ts-project" ||
+            answers.template === "craco-react-ts"
           );
         },
       },
@@ -51,7 +53,8 @@ export function cli(args) {
             answers.template === "vue-project" ||
             answers.template === "vue3-project" ||
             answers.template === "react-project" ||
-            answers.template === "react-ts-project"
+            answers.template === "react-ts-project" ||
+            answers.template === "craco-react-ts"
           );
         },
       },

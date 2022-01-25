@@ -1,12 +1,8 @@
-import React from 'react'
-import styles from './index.module.less'
+import React from "react";
+import styles from "./index.module.less";
 
-function index({children}) {
-  return (
-    <div className={styles.main}>
-      {children}
-    </div>
-  )
-}
+const Index = ({ children }) => {
+  return <div className={styles.main}>{children}</div>;
+};
 
-export default index
+export default Index;

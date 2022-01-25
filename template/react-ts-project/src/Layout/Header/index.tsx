@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import styles from "./index.module.less";
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import _axios from "@/utils/axios";
 import { goLogin } from "@/utils";
 // import { createHashHistory } from "history";
@@ -9,13 +10,13 @@ import { setUserInfo } from "@/store/slice/userSlice";
 import type { RootState } from "@/store";
 import { useLocation, useHistory } from "react-router-dom";
 
-function Header() {
+const Header = () => {
   const location = useLocation();
   const history = useHistory();
   const dispatch = useDispatch();
   const userName = useSelector((state: RootState) => state.user.userName);
   const logout = () => {
-    new Promise((resolve, reject) => {
+    new Promise((resolve) => {
       resolve({ code: 1, message: "success" });
     })
       // _axios.post("/cms/system/logout")
@@ -24,7 +25,7 @@ function Header() {
       });
   };
   const getUserInfo = () => {
-    new Promise((resolve, reject) => {
+    new Promise((resolve) => {
       resolve({ code: 1, data: { userName: "jxd", userRole: 0, id: 1 } });
     })
       // _axios.post("/cms/user/login/info")
@@ -52,7 +53,7 @@ function Header() {
           history.push("/");
         }}
       >
-        AI管理平台
+        这里是TITLE
       </span>
       <Dropdown overlay={menu}>
         <span className={styles.user}>{userName}</span>

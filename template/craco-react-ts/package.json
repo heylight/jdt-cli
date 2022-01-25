@@ -1,5 +1,5 @@
 {
-  "name": "cra-react-carco",
+  "name": "{{name}}",
   "version": "0.1.0",
   "scripts": {
     "analyze": "REACT_APP_INTERACTIVE_ANALYZE=1 yarn build",

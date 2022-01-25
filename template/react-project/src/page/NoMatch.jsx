@@ -1,6 +1,6 @@
 import React from "react";
 
-function NoMatch() {
+const NoMatch = () => {
   return (
     <div
       style={{
@@ -13,6 +13,6 @@ function NoMatch() {
       <h1>页面404啦</h1>
     </div>
   );
-}
+};
 
 export default NoMatch;

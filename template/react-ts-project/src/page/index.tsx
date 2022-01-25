@@ -1,10 +1,11 @@
-import React, { useState, useEffect, useRef, useMemo } from "react";
-import { useLocation, useHistory } from "react-router-dom";
+import React, { useState, useRef } from "react";
+import { useHistory } from "react-router-dom";
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import _axios from "@/utils/axios";
 import dayjs from "dayjs";
 import { useStore } from "react-redux";
 
-function index() {
+const Index = () => {
   const nowTime = dayjs(new Date()).format("YYYY/MM/DD HH:mm:ss");
   const store = useStore();
   const history = useHistory();
@@ -44,6 +45,6 @@ function index() {
       <button onClick={goTest}>去测试页</button>
     </>
   );
-}
+};
 
-export default index;
+export default Index;

@@ -1,5 +1,4 @@
-import React, { useEffect, useMemo, useCallback } from "react";
-import { useHistory } from "react-router-dom";
+import React, { useMemo } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {
   decrement,
@@ -9,7 +8,7 @@ import {
 import { Button, Input } from "antd";
 import { useDebounceFn } from "ahooks";
 
-function TestPage() {
+const TestPage = () => {
   const count = useSelector((state) => state.counter.value);
   const dispatch = useDispatch();
   const { run: input2Increase } = useDebounceFn(
@@ -47,11 +46,11 @@ function TestPage() {
       <Input
         placeholder="输入数字以改变count，输入1为+1，输入-1为-1"
         onChange={input2Increase}
-      ></Input>
+      />
       <div>{doubleCount}</div>
       <Button onClick={goBack}>返回</Button>
     </>
   );
-}
+};
 
 export default TestPage;

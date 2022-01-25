@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from "react";
-import { Modal, Button, Form, Input, InputNumber, Radio, Select } from "antd";
+import React, { useEffect } from "react";
+import { Modal, Form, Input, InputNumber } from "antd";
+// eslint-disable-next-line no-unused-vars
 import _axios from "@/utils/axios";
 
-function ModalEdit({ show, handleShow, onSubmit, rowData }) {
+const ModalEdit = ({ show, handleShow, onSubmit, rowData }) => {
   const [form] = Form.useForm();
   const handleOk = () => {
     onSubmit({ ...form.getFieldsValue(), id: rowData.id });
@@ -29,15 +30,15 @@ function ModalEdit({ show, handleShow, onSubmit, rowData }) {
       >
         <Form form={form}>
           <Form.Item label="猫猫名字" name="name">
-            <Input></Input>
+            <Input />
           </Form.Item>
           <Form.Item label="猫猫年龄" name="age">
-            <InputNumber controls={false}></InputNumber>
+            <InputNumber controls={false} />
           </Form.Item>
         </Form>
       </Modal>
     </>
   );
-}
+};
 
 export default ModalEdit;

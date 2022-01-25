@@ -28,6 +28,11 @@ async function copyConfig(to, answers) {
     await write(path.join(to, "vite.config.ts"), compile(env)(answers), {
       overwrite: true,
     });
+  } else if (answers.template === "craco-react-ts") {
+    let env = fse.readFileSync(path.join(to, "craco.config.js"), "utf-8");
+    await write(path.join(to, "craco.config.js"), compile(env)(answers), {
+      overwrite: true,
+    });
   }
 
   if (answers.install) {
@@ -39,7 +44,8 @@ async function copyConfig(to, answers) {
     if (
       answers.template === "react-project" ||
       answers.template === "react-ts-project" ||
-      answers.template === "vue3-project"
+      answers.template === "vue3-project" ||
+      answers.template === "craco-react-ts"
     ) {
       exec(`cd ${answers.name}&&yarn`, function (err) {
         clearInterval(spin);

@@ -3,8 +3,9 @@ import { Route, Switch, useRouteMatch } from "react-router-dom";
 import routes from "./mainRoutes";
 import Layout from "@/Layout";
 import Sider from "@/page/Main/Sider";
+import NoMatch from "@/page/NoMatch";
 
-function MainRoute() {
+const MainRoute = () => {
   const match = useRouteMatch();
   const filteRoute = (route) => {
     if (route.children) {
@@ -16,9 +17,9 @@ function MainRoute() {
             exact
             render={(props) => {
               document.title = c_route.title;
-              return <c_route.component {...props}></c_route.component>;
+              return <c_route.component {...props} />;
             }}
-          ></Route>
+          />
         );
       });
     }
@@ -29,19 +30,28 @@ function MainRoute() {
         exact
         render={(props) => {
           document.title = route.title;
-          return <route.component {...props}></route.component>;
+          return <route.component {...props} />;
         }}
-      ></Route>
+      />
     );
   };
   return (
     <Layout>
-      <Sider></Sider>
+      <Sider />
       <div style={{ flex: 1 }}>
-        <Switch>{routes.map((item) => filteRoute(item))}</Switch>
+        <Switch>
+          {routes.map((item) => filteRoute(item))}
+          <Route
+            path="*"
+            render={(props) => {
+              document.title = "404";
+              return <NoMatch {...props} />;
+            }}
+          />
+        </Switch>
       </div>
     </Layout>
   );
-}
+};
 
 export default MainRoute;

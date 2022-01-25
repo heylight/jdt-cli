@@ -1,5 +1,6 @@
-import React from "react";
-import { Form, Input, Button } from "antd";
+import type { MutableRefObject } from "react";
+import React, { useRef } from "react";
+import { Form, Button } from "antd";
 
 interface SearchProps {
   onSearch: () => void;
@@ -7,6 +8,15 @@ interface SearchProps {
   children: any;
   createBtnTitle?: string;
   createBtnFunc?: () => any;
+  form: SearchForm;
+  labelSpan?: number;
+  wrapperSpan?: number;
+}
+
+interface SearchForm {
+  getValue: () => MutableRefObject<any>;
+  setForm: (value: any) => any;
+  clearForm: () => any;
 }
 
 interface SearchItemProps {
@@ -14,23 +24,45 @@ interface SearchItemProps {
   label: string;
   children: any;
   br?: boolean;
+  width?: number;
+  labelSpan?: number;
+  wrapperSpan?: number;
 }
 
-function Search({
+const Search = ({
   onSearch,
   onClear,
   children,
   createBtnTitle,
   createBtnFunc,
-}: SearchProps) {
+  form,
+  labelSpan,
+  wrapperSpan,
+}: SearchProps) => {
   const [searchForm] = Form.useForm();
   const clear = () => {
-    onClear();
     searchForm.resetFields();
+    form.clearForm();
+    onClear();
+  };
+  const submit = () => {
+    form.setForm(searchForm.getFieldsValue());
+    onSearch();
+  };
+  const formLayout = {
+    labelCol: labelSpan ? { span: labelSpan } : undefined,
+    wrapperCol: wrapperSpan ? { span: wrapperSpan } : undefined,
   };
   return (
     <div style={{ padding: 12, clear: "both" }}>
-      <Form form={searchForm} name="searchForm" labelAlign="left">
+      <Form
+        form={searchForm}
+        name="searchForm"
+        labelAlign="right"
+        {...formLayout}
+        // labelCol={{ span: labelSpan }}
+        // wrapperCol={{ span: wrapperSpan }}
+      >
         <div
           style={{
             display: "flex",
@@ -40,9 +72,7 @@ function Search({
           }}
         >
           {children}
-        </div>
-        <div style={{ float: "left" }}>
-          <Button type="primary" onClick={onSearch}>
+          <Button type="primary" onClick={submit}>
             查询
           </Button>
           <Button style={{ marginLeft: 10 }} onClick={clear}>
@@ -57,16 +87,49 @@ function Search({
       </Form>
     </div>
   );
-}
+};
 
-Search.Item = function ({ name, label, children, br }: SearchItemProps) {
+Search.Item = ({
+  name,
+  label,
+  children,
+  br,
+  width,
+  labelSpan,
+  wrapperSpan,
+}: SearchItemProps) => {
+  const itemLayout = {
+    labelCol: labelSpan ? { span: labelSpan } : undefined,
+    wrapperCol: wrapperSpan ? { span: wrapperSpan } : undefined,
+  };
   return (
-    <div style={{ width: 400, marginRight: 10 }}>
-      <Form.Item label={label} name={name}>
-        {children}
-      </Form.Item>
-    </div>
+    <>
+      <div style={{ width: br ? "80%" : width || 400, marginRight: 10 }}>
+        <Form.Item
+          label={label}
+          name={name}
+          style={{ width: width || 400 }}
+          labelAlign="right"
+          {...itemLayout}
+        >
+          {children}
+        </Form.Item>
+      </div>
+    </>
   );
+};
+
+Search.useSearchForm = (): SearchForm => {
+  const formValue: MutableRefObject<any> = useRef({});
+  const getValue = () => formValue.current;
+  const setForm = (value: any) => (formValue.current = value);
+  const clearForm = () => (formValue.current = {});
+  const searchForm = {
+    getValue,
+    setForm,
+    clearForm,
+  };
+  return searchForm;
 };
 
 export default Search;

@@ -5,7 +5,7 @@ import { Menu } from "antd";
 import routes from "@/Router/mainRoutes";
 import { useSelector } from "react-redux";
 
-function index() {
+const Index = () => {
   const auth = useSelector((state) => state.user.authority);
   const location = useLocation();
   const match = useRouteMatch();
@@ -73,6 +73,6 @@ function index() {
       </Menu>
     </div>
   );
-}
+};
 
-export default index;
+export default Index;

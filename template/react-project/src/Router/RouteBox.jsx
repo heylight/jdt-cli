@@ -1,11 +1,11 @@
-import React from "react";
+import React, { Suspense, lazy } from "react";
 import { Route, Switch } from "react-router-dom";
 import Login from "@/page/Login";
 import Home from "@/page/Home";
 import NoMatch from "@/page/NoMatch";
-import MainRoute from "./MainRoute";
+const MainRoute = lazy(() => import("./MainRoute"));
 
-function RouteBox() {
+const RouteBox = () => {
   return (
     <Switch>
       <Route
@@ -15,9 +15,11 @@ function RouteBox() {
           document.title = "登录";
           return <Login {...props} />;
         }}
-      ></Route>
+      />
       <Route path="/main">
-        <MainRoute />
+        <Suspense fallback={<div>Loading...</div>}>
+          <MainRoute />
+        </Suspense>
       </Route>
       <Route
         path="/"
@@ -26,16 +28,16 @@ function RouteBox() {
           document.title = "首页";
           return <Home {...props} />;
         }}
-      ></Route>
+      />
       <Route
         path="*"
         render={(props) => {
           document.title = "404";
           return <NoMatch {...props} />;
         }}
-      ></Route>
+      />
     </Switch>
   );
-}
+};
 
 export default RouteBox;

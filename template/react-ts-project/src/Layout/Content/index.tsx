@@ -5,8 +5,8 @@ interface ContentProps {
   children: any;
 }
 
-function index({ children }: ContentProps) {
+const Index = ({ children }: ContentProps) => {
   return <div className={styles.main}>{children}</div>;
 }
 
-export default index;
+export default Index;

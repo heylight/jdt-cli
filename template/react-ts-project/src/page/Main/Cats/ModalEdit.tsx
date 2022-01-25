@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from "react";
-import { Modal, Button, Form, Input, InputNumber, Radio, Select } from "antd";
+import React, { useEffect } from "react";
+import { Modal, Form, Input, InputNumber } from "antd";
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import _axios from "@/utils/axios";
-import { CatSchema } from "./index";
+import type { CatSchema } from "./index";
 
 interface CatsModalProps {
   show: boolean;
@@ -10,7 +11,7 @@ interface CatsModalProps {
   rowData: CatSchema;
 }
 
-function ModalEdit({ show, handleShow, onSubmit, rowData }: CatsModalProps) {
+const ModalEdit = ({ show, handleShow, onSubmit, rowData }: CatsModalProps) => {
   const [form] = Form.useForm();
   const handleOk = () => {
     onSubmit({ ...form.getFieldsValue(), id: rowData.id });
@@ -35,17 +36,22 @@ function ModalEdit({ show, handleShow, onSubmit, rowData }: CatsModalProps) {
         onCancel={handleCancel}
         destroyOnClose
       >
-        <Form form={form}>
+        <Form
+          form={form}
+          labelCol={{ span: 4 }}
+          wrapperCol={{ span: 18 }}
+          labelAlign="left"
+        >
           <Form.Item label="猫猫名字" name="name">
-            <Input></Input>
+            <Input />
           </Form.Item>
           <Form.Item label="猫猫年龄" name="age">
-            <InputNumber controls={false}></InputNumber>
+            <InputNumber controls={false} />
           </Form.Item>
         </Form>
       </Modal>
     </>
   );
-}
+};
 
 export default ModalEdit;
