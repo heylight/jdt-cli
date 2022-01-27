@@ -29,6 +29,7 @@ const Cats = () => {
   const [total, setTotal] = useState(0);
   const [tabledata, setTabledata] = useState([]);
   const [rowData, setRowData] = useState({} as CatSchema);
+  const [searchForm, setSearchForm] = useState({});
   // 获取数据列表
   const getList = (param: catQuery) => {
     setLoading(true);
@@ -47,18 +48,14 @@ const Cats = () => {
         setLoading(false);
       });
   };
+  // 查询方法只对SearchForm进行赋值 接口调用交给Effect中处理
   // 查询
   const handleSearch = () => {
-    setQuery({ ...query, pageNum: 1 });
-    getList({ ...query, pageNum: 1, ...form.getValue() });
+    setSearchForm({ ...form.getValue() });
   };
   // 清空
   const clear = () => {
-    setQuery({
-      ...query,
-      pageNum: 1,
-    });
-    getList({ ...query, pageNum: 1 });
+    setSearchForm({});
   };
   // 翻页
   const onChangePage = (pageNum: number, pageSize: number) => {
@@ -96,10 +93,12 @@ const Cats = () => {
       getList({ ...query });
     }
   };
-  // 进入时调用
+
+  // getList这个副作用 依赖于searchForm的更新而更新  更符合useEffect的心智模型
   useEffect(() => {
-    getList({ ...query, ...form.getValue() });
-  }, []);
+    setQuery({ ...query, pageNum: 1 });
+    getList({ ...query, ...searchForm });
+  }, [searchForm]);
 
   return (
     <>
